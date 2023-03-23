@@ -12,84 +12,23 @@
                     <td>{{ item['mail_data'] }}</td>
                 </tr>
             </div> -->
-            <tr>
-                <td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td>
-            </tr>
-            <tr>
-                <td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td>
-            </tr>
-            <tr>
-                <td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td>
-            </tr>
-            <tr>
-                <td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td>
-            </tr>
-            <tr>
-                <td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td>
-            </tr>
-            <tr>
-                <td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td>
-            </tr>
-            <tr>
-                <td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td>
-            </tr>
-            <tr>
-                <td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td>
-            </tr>
-            <tr>
-                <td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td>
-            </tr>
-            <tr>
-                <td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td>
-            </tr>
-            <tr>
-                <td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td>
-            </tr>
-            <tr>
-                <td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td>
-            </tr>
-            <tr>
-                <td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td>
-            </tr>
-            <tr>
-                <td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td>
-            </tr>
-            <tr>
-                <td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td>
-            </tr>
-            <tr>
-                <td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td>
-            </tr>
-            <tr>
-                <td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td>
-            </tr>
-            <tr>
-                <td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td>
-            </tr>
-            <tr>
-                <td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td>
-            </tr>
-            <tr>
-                <td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td>
-            </tr>
-            <tr>
-                <td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td>
-            </tr>
-            <tr>
-                <td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td>
-            </tr>
-            <tr>
-                <td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td>
-            </tr>
-            <tr>
-                <td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td>
-            </tr>
-            <tr>
-                <td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td>
-            </tr>
-            <tr>
-                <td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td>
-            </tr>
+            <div>
+                <tr v-for="point in points"
+                    :key="point.id"
+                >
+                    <td> {{ point.id }} </td>
+                    <td> {{ point.lineId }} </td>
+                    <td> {{ point.x }} </td>
+                    <td> {{ point.y }} </td>
+                    <td> {{ point.thickness }} </td>
+                    <td> {{ point.magneticStrength }} </td>
+                    <td> {{ point.induction }} </td>
+                    <td> {{ point.inclination }} </td>
+                    <td> {{ point.declination }} </td>
+                    <td> {{ point.operatorId }} </td>
+                    <td> {{ point.datetime }} </td>
+                </tr>
+            </div>
         </table>
 
 </template>
@@ -98,6 +37,21 @@
 
 export default {
     name: "my-table",
+    props: {
+        points: {
+            id: Number,
+            lineId: Number,
+            x: Number,
+            y: Number,
+            thickness: Number,
+            magneticStrength: Number,
+            induction: Number,
+            inclination: Number,
+            declination: Number,
+            operatorId: Number,
+            datetime: String,
+        },
+    }
 }
 </script>
 
