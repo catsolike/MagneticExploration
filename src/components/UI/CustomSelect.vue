@@ -1,20 +1,19 @@
 <template>
     <select class="selecter"
+            :value="modelValue"
+            @change="changeOption"
     >
-    <!-- v-model="modelValue"
-    @change="changeOption" -->
         <option class="select-placeholder" 
                 disabled
                 hidden
                 selected 
                 value="null"> {{ placeholderText }} </option>
         <option 
-            v-for="option in options"
-            :key="option.value"
-            :value="option.value"
-            :selected="option.value === selectedValue"
+                v-for="option in options"
+                :key="option.id"
+                :value="option.value"
         >
-            {{ option.label }}
+            {{ option.name }}
         </option>
     </select>
 </template>
@@ -24,24 +23,24 @@
 export default {
     name: 'custom-select',
     props:{
-        // modelValue: {
-        //     type: String
-        // },
-        placeholderText: {
+        modelValue: {
             type: String,
-            default: 'Choose from list...',
         },
         options: {
             type: Array,
             default: () => []
-        }
+        },
+        placeholderText: {
+            type: String,
+            default: 'Choose from list...',
+        },
     },
     methods: {
-        // changeOption(event) {
-        //     this.$emit('update:modelValue', event.target.value);
-        // }
+        changeOption(event) {
+            this.$emit('update:modelValue', event.target.value);
+        }
     }
-  }
+}
 
 </script>
 

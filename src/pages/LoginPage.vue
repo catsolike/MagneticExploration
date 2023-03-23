@@ -1,31 +1,50 @@
+
 <template>
     <div class="login-wrapper">
         <div class="login-form">
             <div class="login-inputs">
-                <custom-text-input placeholder="Login"/>
-                <custom-text-input placeholder="Password"/>
-                <custom-select  class="choose-project"
-                                :placeholder-text="'Choose project'"
-                >
-                    <!-- v-model="projectSelection" -->
-                    <!-- <option value="1">wdawdd</option>
-                    <option value="2">wdd</option>
-                    <option value="3">fdd</option> -->
-                </custom-select>
+                <custom-text-input placeholder="Login"
+                                    v-model:modelValue="login"
+                />
+                <custom-text-input placeholder="Password"
+                                    v-model:modelValue="password"
+                />
+
             </div>
-            <custom-button class="login-btn" @click="$router.push('/')">Log In</custom-button>
+            <custom-button class="login-btn" @click="checkLogin">Log In</custom-button>
         </div>
     </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
     name: 'login-page',
+
     data() { 
         return {
-            projectSelection: '',
+            login: '',
+            password: '',
+        }
+    },
+    methods: {
+        checkLogin() {
+            axios.get('https://api.mrsmori.moe/login', {'headers' : {'content-type': 'application/javascript'},
+            'params': { login: this.login, password: this.password },
+        })
+                .then((response) => {
+                    if (response.data.is_error === false)
+                    {
+                        this.$router.push('/')
+                    }
+                    // console.log(response.data)
+                })
+                .then((error) => {
+                    console.log(error)
+                })
         }
     }
+
 }
 </script>
 

@@ -1,6 +1,10 @@
 <template>
 
-    <input  class="input-text" type="text">
+    <input  class="input-text" 
+            type="text"
+            :value="modelValue"
+            @input="updateInput"        
+    >
     
 </template>
 
@@ -9,10 +13,12 @@
 export default {
     name: 'custom-text-input',
     props:{
-
+        modelValue: [String, Number]
     },
     methods:{
-        
+        updateInput(event) { 
+            this.$emit('update:modelValue', event.target.value)
+        }
     }
 }
 </script>

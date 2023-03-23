@@ -1,5 +1,4 @@
 <template>
-    <div class="table-back ">
         <table class="table-main">
             <tr><th>№</th><th>X</th><th>Y</th><th>Line</th><th>Operator</th><th>Time</th><th>Induction</th><th>Inclination</th><th>Declination</th></tr>
             <!-- <div id="acc_table">
@@ -92,7 +91,7 @@
                 <td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td>
             </tr>
         </table>
-    </div>
+
 </template>
 
 <script>
@@ -103,29 +102,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-//colors
-$table-border: rgb(229, 229, 229);
-$table-separate-line: rgb(229, 229, 229);
-//$table-background: rgb(85, 85, 95);
-$table-background: rgb(157, 154, 161);
-$table-title-border-line: rgb(177,93,255);
-$table-string-background-hover: rgb(51,51,61);
-
-
 $table-string-height-hover: ceil(calc($base-font-size * 2));
 $padding: 15px;
 $header-height: $base-font-size;
 $load-height: $base-font-size;
 $content-padding-top: calc($header-height + $load-height + 5*$padding);
-.table-back {
-    overflow: auto;
-    //background: $table-background;
-    // background: linear-gradient(140deg, rgba(255, 255, 255, 0) 18.000%, rgba(11, 11, 177, 0.3) 88.000%);
-    // backdrop-filter: blur(30px);
-    border: $table-border solid 2px;
-    border-radius: 4px;
-}
 
 .table-main {
     height: 100vh;
@@ -147,10 +128,6 @@ th {
     
 }
 
-th:last-child {
-    border-bottom: 0px solid red;
-}
-
 th:first-child{
     max-width: calc(4 * $padding);
     font-size: 15px;
@@ -167,6 +144,10 @@ td {
 
 tr {
     border-bottom: $table-separate-line solid 2px;
+}
+
+tr:last-child {
+    border-bottom: 0px solid red;
 }
 
 tr:hover td {

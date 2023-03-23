@@ -1,15 +1,25 @@
 <template>
     <div class="datapage-grid">
+        <custom-select  class="project-select"
+                        :placeholder-text="'Choose project'"
+                        :options="projectsList"
+
+                        v-model="selectedProject"
+        ></custom-select>
+                        
         <custom-select  class="area-select"
                         :placeholder-text="'Choose area...'"
-                        ></custom-select>
+                        :options="areasList"
+        ></custom-select>
+<!--         
         <custom-select  class="profile-select"
                         :placeholder-text="'Choose profile...'"
         ></custom-select>
-    
+     -->
         <div class="search-wrapper">
             <custom-text-input  placeholder="Search..."
                                 class="search-input"
+                                v-model:modelValue="searchQuery"
             ></custom-text-input>
         </div>
 
@@ -17,7 +27,7 @@
         <p class="about-table__measurements-info">Measurements</p>
     
         <div class="table-wrapper">
-            <my-table class="table-element"></my-table>
+            <MyTable class="table-element"></MyTable>
         </div>
 
         <div class="graphic-wrapper">
@@ -38,12 +48,38 @@
 
 
 <script>
+import { getProjectsList } from "@/hooks/projects/getProjectList"
+import { getAreasList } from "@/hooks/areas/getAreas"
+// import { getLinesList } from "@/hooks/lines/getLines"
+// import { getPointsList } from "@/hooks/points/getPoints"
 import MyTable from '@/components/MyTable.vue';
+// import { toRaw } from "vue";
 
 export default {
     name: "data-page",
+    data() { 
+        return {
+            searchQuery: '',
+            // selectedProject: 0,
+        }
+    },
     components: {
         MyTable
+    },
+    setup() {
+        const { projectsList } = getProjectsList();
+        const { areasList, selectedProject } = getAreasList();
+        // const { linesList } = getLinesList();
+        // const { pointsList } = getPointsList;
+        console.log('работай хуятина')
+
+        return { 
+            projectsList,
+            selectedProject,
+            areasList,
+            // linesList,
+            // pointsList,
+        }
     }
 }
 </script>
@@ -58,19 +94,23 @@ export default {
     grid-template-rows: 1fr 1fr 1fr 20fr 1fr;
 }
 
-.area-select{
+.project-select {
     grid-column: 1;
     grid-row: 1;
 }
 
-.profile-select{
+.area-select{
     grid-column: 2;
     grid-row: 1;
 }
 
+.profile-select{
+    grid-column: 1;
+    grid-row: 2;
+}
+
 .search-wrapper {
-    grid-column-start: 1;
-    grid-column-end: 3;
+    grid-column: 2;
     grid-row: 2;
 }
 
@@ -89,9 +129,12 @@ export default {
 .table-wrapper { 
     grid-column-start: 1;
     grid-column-end: 3;
-    grid-row: 4;
 
-    max-height: 90vh; 
+    overflow: auto;
+    grid-row: 4;
+    height: 60vh;
+    border: $table-border solid 2px;
+    border-radius: 4px;
 }
 
 .graphic-wrapper{
