@@ -13,7 +13,7 @@
                 :key="option.id"
                 :value="option.id"
         >
-            {{ option.name }}
+            {{ hasName ? option.name : option.id }}
         </option>
     </select>
 </template>
@@ -28,7 +28,7 @@ export default {
         },
         options: {
             type: Array,
-            default: () => []
+            default: () => [{ name:'Выберите из предыдущего списка'} ]
         },
         placeholderText: {
             type: String,
@@ -38,7 +38,15 @@ export default {
     methods: {
         changeOption(event) {
             this.$emit('update:modelValue', event.target.value);
-        }
+        },
+    },
+    computed: {
+        hasName() {
+            return 'name' in this.options[0]
+        },
+        // hasElements() {
+        //     if (typeof this.options === 'undefined' && this.options.length <= 0) return this.options = [{ name:'Список пуст'} ]
+        // },
     }
 }
 

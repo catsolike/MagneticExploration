@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
 import LoginPage from "@/pages/LoginPage";
-import DataPage from "@/pages/DataPage";
+// import DataPage from "@/pages/DataPage";
 import GraphicPage from "@/pages/GraphicPage";
-import test from '@/pages/test';
+import TestPage from '@/pages/TestPage';
+// import ServerTest from '@/pages/ServerTest';
+import TestGraph from '@/pages/TestGraph';
 
 const routes = [
     {
@@ -11,16 +13,25 @@ const routes = [
     },
     {
         path: '/',
-        component: test
+        component: TestGraph
     },
     {
         path: '/graphic',
         component: GraphicPage
     },
+    // {
+    //     path: '/dp',
+    //     component: DataPage
+    // },
+    // {
+    //     path: '/servertest',
+    //     component: ServerTest
+    // },
     {
-        path: '/dp',
-        component: DataPage
-    }
+        path: '/test',
+        component: TestPage
+    },
+
 ]
 
 const router = createRouter(
