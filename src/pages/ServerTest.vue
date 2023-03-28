@@ -29,9 +29,9 @@
         <p class="about-table__measurements-info">Measurements</p>
     
         <div class="table-wrapper">
-            <TestTable class="table-element"
-            >
-            </TestTable>
+            <test-table class="table-element"
+                        :items="points"
+            ></test-table>
         </div>
 
         <div class="graphic-wrapper">

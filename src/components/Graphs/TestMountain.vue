@@ -1,7 +1,7 @@
 <template>
-    <div ref="plot"
-         class="mountain-style"
-    ></div>
+<div ref="plot"
+      class="mountain-style"
+></div>
 </template>
 
 <script>
@@ -12,33 +12,28 @@ export default {
     
   props: {
     items: Array,
-    // xData: {
-    //     type: Array,
-    //     required: true,
-    //   },
-    //   yData: {
-    //     type: Array,
-    //     required: true,
-    //   },
-    //   zData: {
-    //     type: Array,
-    //     required: true,
-    //   },
-    },
+  },
   mounted() {
-    console.log(this.items)
-    this.fillXYZ();
-    console.log(this.xData)
-    console.log(this.yData)
-    console.log(this.zData)
-      
+    this.createGraph();
+  },
+  data() {
+    return {
+      xData: Array(this.items.map(item => Number(item.x))),
+      yData: Array(this.items.map(item => Number(item.y))),
+      zData: Array(this.items.map(item => Number(item.induction))),
+    }
+  },
+  methods: {
+    createGraph() {
       const data = [
         {
-          
-          x: this.xData,
-          y: this.yData,
-          z: this.zData,
+          x: this.xData[0],
+          y: this.yData[0],
+          z: this.zData[0],
+            
+
           type: 'surface',
+        
           contours: {
             z: {
               show: true,
@@ -47,6 +42,7 @@ export default {
               project: { z: true },
             },
           },
+      
           colorscale: 'Viridis',
         },
       ];
@@ -68,25 +64,8 @@ export default {
       };
 
       Plotly.newPlot(this.$refs.plot, data, layout);
-  },
-  data() {
-    return {
-      xData: [],
-      yData: [],
-      zData: [],
-    }
-  },
-  methods: {
-    fillXYZ() {
-      for (let i = 0; i < this.items.lenght + 1; i++) {
-        this.xData[i] = this.items[i].x;
-        this.yData[i] = this.items[i].y;
-        this.zData[i] = this.items[i].induction;
-      }
-      return this.xData, this.yData, this.zData
-    }
+    },
   }
-    
 };
 
 </script>

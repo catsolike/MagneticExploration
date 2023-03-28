@@ -42,7 +42,7 @@ export default {
           colorscale: 'Viridis',
         },
       ];
-
+      
       const layout = {
         paper_bgcolor: "rgba(0,0,0,0)",
         autosize: true,
