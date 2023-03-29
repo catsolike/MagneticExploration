@@ -12,7 +12,19 @@ export default {
     
   props: {
     items: Array,
-  },
+    // xData: {
+    //     type: Array,
+    //     required: true,
+    //   },
+    //   yData: {
+    //     type: Array,
+    //     required: true,
+    //   },
+    //   zData: {
+    //     type: Array,
+    //     required: true,
+    //   },
+    },
   mounted() {
     this.createGraph();
   },
@@ -20,7 +32,7 @@ export default {
     return {
       xData: Array(this.items.map(item => Number(item.x))),
       yData: Array(this.items.map(item => Number(item.y))),
-      zData: Array(this.items.map(item => Number(item.induction))),
+      zData: Array(this.items.map(item => (item.induction))),
     }
   },
   methods: {
@@ -65,6 +77,13 @@ export default {
 
       Plotly.newPlot(this.$refs.plot, data, layout);
     },
+
+    // fillXYZ() {
+    //   this.xData = this.items.map(item => (item.x, console.log("AAAAAAA X", item.x)))
+    //   this.yData = this.items.map(item => (item.y, console.log("AAAAAAA Y", item.y)))
+    //   this.zData = this.items.map(item => (item.z, console.log("AAAAAAA Z", item.z)))
+    //   // return this.xData, this.yData, this.zData
+    // }
   }
 };
 
