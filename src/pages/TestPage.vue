@@ -76,28 +76,6 @@ export default {
     },
     data() { 
         return {
-            // chartData: [
-            //     {
-            //     x: [1, 2, 3],
-            //     y: [1, 2, 3],
-            //     z: [[1, 2, 3], [4, 5, 6], [7, 8, 9]],
-            //     colorscale: 'YlGnBu',
-            //     type: 'surface'
-            //     },
-            //     // Add more trace objects as needed
-            // ],
-            // chartLayout: {
-            //     title: 'Ribbon Plot',
-            //     showlegend: false,
-            //     autosize: true,
-            //     width: 600,
-            //     height: 600,
-            //     scene: {
-            //     xaxis: {title: 'Sample #'},
-            //     yaxis: {title: 'Wavelength'},
-            //     zaxis: {title: 'OD'}
-            //     }
-            // },
             xData: [10, 20, 30, 40, 50, 60, 70],   // 7 значений, записываемых на оси X. Если не объявить этот список, то он будет создан автоматически и начнется с 0 (индексы каждого списка внутри zData)
             yData: [10, 20, 30],               // 3 линии по оси Y, аналогично xData  ^ 
             zData: [                        
