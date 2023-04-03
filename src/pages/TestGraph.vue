@@ -38,13 +38,9 @@
         </div>
 
         <div class="graphic-wrapper">
-            <!-- <p class="graphic-element">Здесь будет график...</p> -->
             <test-mountain class="graphic-wrapper__mountain"
                             :items="points"
             ></test-mountain>
-            <!-- <ribbons-plots  :chart-data="chartData" 
-                            :chart-layout="chartLayout"
-            ></ribbons-plots> -->
         </div>
         
         <custom-button  class="logout-btn"
@@ -72,9 +68,6 @@ export default {
         TestMountain,
         // RibbonsPlots
     },
-    mounted() {
-        this.logs()
-    },
     data() { 
         return {
             pointsTaked: false,
@@ -98,11 +91,11 @@ export default {
                 { id: 2, name: 'L2 A1', areaId: 1},
                 { id: 3, name: 'L1 A2', areaId: 2},
                 { id: 4, name: 'L1 A3', areaId: 3},
-                { id: 5, name: 'L2 A3', areaId: 3},
-                { id: 6, name: 'L3 A3', areaId: 3},
-                { id: 7, name: 'L1 A4', areaId: 4},
-                { id: 8, name: 'L2 A4', areaId: 4},
-                { id: 9, name: 'L1 A1', areaId: 5},
+                // { id: 5, name: 'L2 A3', areaId: 3},
+                // { id: 6, name: 'L3 A3', areaId: 3},
+                // { id: 7, name: 'L1 A4', areaId: 4},
+                // { id: 8, name: 'L2 A4', areaId: 4},
+                // { id: 9, name: 'L1 A1', areaId: 5},
             ],
             // ID  X Y LineId	    Толщина Магнитная 	Индукция	Наклонение	Склонение	ID 	        Время измерения
             //                      (м)	    силa        (нанотесла)             (градусы)   оператора
@@ -119,19 +112,36 @@ export default {
             // 8	80	90	20	70	60	30	-10	1002	2022-01-08 17:30:00
             // 9	90	100	25	60	70	45	-20	1001	2022-01-09 10:15:00
             // 10	100	110	30	80	90	10	-15	1003	2022-01-10 13:45:00
-
-            //                                                                                   1    2   3
-            //                                                                                   1    1   1
+            
             points: [
-                { id: 10,  lineId: 1, x: 100, y: 100, thickness: 30, magneticStrength: 50, induction: [50, 100, 150, 200, 250, 300, 350, 400, 450, 500], inclination: 30, declination: -10, operatorId: 1001,	    datetime: "2022-01-01 10:00:00", },
-                { id: 20,  lineId: 2, x: 200, y: 200, thickness: 20, magneticStrength: 100,induction: [1, 2, 3, 4, 5, 2, 3, 4, 5, 1], inclination: 60, declination: 5, operatorId: 1002,	    datetime: "2022-01-02 11:30:00", },
-                { id: 30,  lineId: 3, x: 300, y: 300, thickness: 40, magneticStrength: 75, induction: [1, 2, 3, 4, 5, 2, 3, 4, 5, 1], inclination: 45, declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
-                { id: 30,  lineId: 1, x: 400, y: 400, thickness: 40, magneticStrength: 75, induction: [1, 2, 3, 4, 5, 2, 3, 4, 5, 1], inclination: 45, declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
-                { id: 30,  lineId: 1, x: 500, y: 500, thickness: 40, magneticStrength: 75, induction: [1, 2, 3, 4, 5, 2, 3, 4, 5, 1], inclination: 45, declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
-                { id: 30,  lineId: 1, x: 600, y: 600, thickness: 40, magneticStrength: 75, induction: [1, 2, 3, 4, 5, 2, 3, 4, 5, 1], inclination: 45, declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
-                { id: 30,  lineId: 1, x: 700, y: 700, thickness: 40, magneticStrength: 75, induction: [1, 2, 3, 4, 5, 2, 3, 4, 5, 1], inclination: 45, declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
+                { id: 1,  lineId: 1, x: 10, y: 10, thickness: 1, magneticStrength: 50,  induction: 50,  /* [50, 100, 150, 200, 250, 300, 350, 400, 450, 500], */ inclination: 30, declination: -10, operatorId: 1001,	    datetime: "2022-01-01 10:00:00", },
+                { id: 2,  lineId: 1, x: 20, y: 10, thickness: 3, magneticStrength: 100, induction: 100, /* [1, 2, 3, 4, 5, 2, 3, 4, 5, 1], inclination: 60, */ declination: 5, operatorId: 1002,	    datetime: "2022-01-02 11:30:00", },
+                { id: 3,  lineId: 1, x: 30, y: 10, thickness: 2, magneticStrength: 75,  induction: 75,  /* [1, 2, 3, 4, 5, 2, 3, 4, 5, 1], inclination: 45, */ declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
+                { id: 4,  lineId: 1, x: 40, y: 10, thickness: 5, magneticStrength: 75,  induction: 75,  /* [1, 2, 3, 4, 5, 2, 3, 4, 5, 1], inclination: 45, */ declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
+                { id: 5,  lineId: 1, x: 50, y: 10, thickness: 1, magneticStrength: 75,  induction: 75,  /* [1, 2, 3, 4, 5, 2, 3, 4, 5, 1], inclination: 45, */ declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
+                { id: 6,  lineId: 1, x: 60, y: 10, thickness: 2, magneticStrength: 75,  induction: 75,  /* [1, 2, 3, 4, 5, 2, 3, 4, 5, 1], inclination: 45, */ declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
+                { id: 7,  lineId: 1, x: 70, y: 10, thickness: 5, magneticStrength: 75,  induction: 75,  /* [1, 2, 3, 4, 5, 2, 3, 4, 5, 1], inclination: 45, */ declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
+                { id: 8,   lineId: 2, x: 15, y: 20, thickness: 3, magneticStrength: 50, induction: 50,  inclination: 30, declination: -10, operatorId: 1001,	    datetime: "2022-01-01 10:00:00", },
+                { id: 9,   lineId: 2, x: 25, y: 20, thickness: 1, magneticStrength: 100,induction: 100, inclination: 60, declination: 5, operatorId: 1002,	    datetime: "2022-01-02 11:30:00", },
+                { id: 10,  lineId: 2, x: 72, y: 20, thickness: 7, magneticStrength: 75, induction: 75,  inclination: 45, declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
+                { id: 11,  lineId: 2, x: 73, y: 20, thickness: 6, magneticStrength: 75, induction: 75,  inclination: 45, declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
+                { id: 12,  lineId: 2, x: 70, y: 20, thickness: 5, magneticStrength: 75, induction: 75,  inclination: 45, declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
+                { id: 13,  lineId: 2, x: 77, y: 20, thickness: 6, magneticStrength: 75, induction: 75,  inclination: 45, declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
+                { id: 14,  lineId: 2, x: 75, y: 20, thickness: 4, magneticStrength: 75, induction: 75,  inclination: 45, declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
+                { id: 15,  lineId: 3, x: 10, y: 30, thickness: 2, magneticStrength: 50, induction: 50,  inclination: 30, declination: -10, operatorId: 1001, datetime: "2022-01-01 10:00:00", },
+                { id: 16,  lineId: 3, x: 20, y: 30, thickness: 4, magneticStrength: 100,induction: 100, inclination: 60, declination: 5, operatorId: 1002,	    datetime: "2022-01-02 11:30:00", },
+                { id: 17,  lineId: 3, x: 30, y: 30, thickness: 4, magneticStrength: 75, induction: 75,  inclination: 45, declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
+                { id: 18,  lineId: 3, x: 40, y: 30, thickness: 6, magneticStrength: 75, induction: 75,  inclination: 45, declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
+                { id: 19,  lineId: 3, x: 50, y: 30, thickness: 2, magneticStrength: 75, induction: 75,  inclination: 45, declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
+                { id: 20,  lineId: 3, x: 60, y: 30, thickness: 3, magneticStrength: 75, induction: 75,  inclination: 45, declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
+                { id: 21,  lineId: 3, x: 70, y: 30, thickness: 1, magneticStrength: 75, induction: 75,  inclination: 45, declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
+                { id: 22,  lineId: 14, x: 10, y: 40, thickness: 9, magneticStrength: 75, induction: 75, inclination: 45, declination: -20, operatorId: 1001, datetime: "2022-01-03 14:15:00", },
             ],
         }
+    },
+    mounted() {
+        // this.slicing();
+        // this.logs()
     },
     computed: {
         filteredAreas() {
@@ -149,9 +159,8 @@ export default {
             console.log(this.points.map(item => Number(item.x)));
             console.log(this.points.map(item => Number(item.y)));
             console.log(this.points.map(item => Number(item.induction)));
-        }
+        },
     }
-
 }
 </script>
 
@@ -166,38 +175,45 @@ export default {
 }
 
 .project-select {
+    display: none;
     grid-column: 1;
     grid-row: 1;
 }
 
 .area-select{
+    display: none;
     grid-column: 2;
     grid-row: 1;
 }
 
 .profile-select{
+    display: none;
     grid-column: 1;
     grid-row: 2;
 }
 
 .search-wrapper {
+    display: none;
     grid-column: 2;
     grid-row: 2;
 }
 
 .about-table{
     &__points-info {
+        display: none;
         grid-column: 1;
         grid-row: 3;
     }
     
     &__measurements-info {
+        display: none;
         grid-column: 2;
         grid-row: 3;
     }
 }
 
 .table-wrapper { 
+    display: none;
     grid-column-start: 1;
     grid-column-end: 3;
 
@@ -209,8 +225,8 @@ export default {
 }
 
 .graphic-wrapper{
-    grid-column-start: 3;
-    grid-column-end: 3;
+    grid-column-start: 1;
+    grid-column-end: 4;
     grid-row-start: 1;
     grid-row-end: 5;
     position: relative;

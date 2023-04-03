@@ -9,39 +9,32 @@ import Plotly from 'plotly.js-dist';
 
 export default {
   name: 'test-mountain',
-    
-  props: {
-    items: Array,
-    // xData: {
-    //     type: Array,
-    //     required: true,
-    //   },
-    //   yData: {
-    //     type: Array,
-    //     required: true,
-    //   },
-    //   zData: {
-    //     type: Array,
-    //     required: true,
-    //   },
-    },
-  mounted() {
-    this.createGraph();
-  },
   data() {
     return {
-      xData: Array(this.items.map(item => Number(item.x))),
-      yData: Array(this.items.map(item => Number(item.y))),
-      zData: Array(this.items.map(item => (item.induction))),
+      slicedItems: [],
+      xData: [],
+      yData: [],
+      zData: [],
     }
+  },
+  props: {
+    items: Array,
+    },
+  mounted() {
+    this.slicedItems = this.slicing(Array((this.items.map(item => item))));
+    this.fillXYZ();
+    console.log("1WATAFAK",this.xData)
+    console.log("2WATAFAK",this.yData)
+    console.log("3WATAFAK",this.zData)
+    this.createGraph();
   },
   methods: {
     createGraph() {
       const data = [
         {
           x: this.xData[0],
-          y: this.yData[0],
-          z: this.zData[0],
+          y: this.yData,
+          z: this.zData,
             
 
           type: 'surface',
@@ -78,12 +71,37 @@ export default {
       Plotly.newPlot(this.$refs.plot, data, layout);
     },
 
-    // fillXYZ() {
-    //   this.xData = this.items.map(item => (item.x, console.log("AAAAAAA X", item.x)))
-    //   this.yData = this.items.map(item => (item.y, console.log("AAAAAAA Y", item.y)))
-    //   this.zData = this.items.map(item => (item.z, console.log("AAAAAAA Z", item.z)))
-    //   // return this.xData, this.yData, this.zData
-    // }
+    fillXYZ() {
+      let tmp;
+      this.xData = Array(this.slicedItems.map(item => Number(item.x)));
+
+      for (let i = 0; i < this.slicedItems.length; i++){
+        tmp = this.slicedItems[i].map(item => Number(item.y));
+        this.yData.push(tmp[i]);
+      }
+
+      for (let i = 0; i < this.slicedItems.length; i++){
+        tmp = this.slicedItems[i].map(item => Number(item.thickness));
+        this.zData.push(tmp);
+      }
+
+      // this.xData = Array(this.items.map(item => Number(item.x)));
+      // this.yData = Array(this.items.map(item => Number(item.y)));
+      // this.zData = Array(this.items.map(item => (item.thickness)));
+      // return this.xData, this.yData, this.zData
+    },
+
+    slicing(values) {
+      let tmp;
+      let result = [];
+      
+      for (let i = 0; i < values.length; i++) {
+        tmp = values.filter(item => item.lineId == i);
+        if(tmp.length > 0) result.push(tmp)
+      }
+
+      return result
+    }
   }
 };
 

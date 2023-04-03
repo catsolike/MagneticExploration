@@ -1,11 +1,19 @@
 import { createApp } from 'vue'
 import App from './App'
-import components from '@/components/UI';
+import uiComponents from '@/components/UI';
+import addingForms from '@/components/Forms/Adding';
+import editingForms from '@/components/Forms/Editing';
 import router from '@/router/router'
 
 const app = createApp(App)
 
-components.forEach(component => {
+uiComponents.forEach(component => {
+    app.component(component.name, component)
+})
+addingForms.forEach(component => {
+    app.component(component.name, component)
+})
+editingForms.forEach(component => {
     app.component(component.name, component)
 })
 

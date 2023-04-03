@@ -23,13 +23,14 @@ export default {
 
     data() { 
         return {
+            defaultLink: "https://catsolike.mrsmori.moe",
             login: '',
             password: '',
         }
     },
     methods: {
         checkLogin() {
-            axios.get('https://api.mrsmori.moe/login', {'headers' : {'content-type': 'application/javascript'},
+            axios.get(`${ this.defaultLink }/login`, {'headers' : {'content-type': 'application/javascript'},
             'params': { login: this.login, password: this.password },
         })
                 .then((response) => {

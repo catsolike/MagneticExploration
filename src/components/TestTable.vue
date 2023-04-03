@@ -21,7 +21,7 @@
 
 <script>
 export default {
-    name: "my-table",
+    name: "test-table",
     props: {
         items: Array,
     }
@@ -43,12 +43,8 @@ export default {
 //     },
 
 <style lang="scss" scoped>
-$table-string-height-hover: ceil(calc($base-font-size * 2));
-$padding: 15px;
 $header-height: $base-font-size;
-$load-height: $base-font-size;
-$content-padding-top: calc($header-height + $load-height + 5*$padding);
-table {
+.table-main {
     border-collapse: collapse;
     width: 100%;
     text-align: center;
@@ -59,7 +55,7 @@ th {
     background: $table-string-background-hover;
     font-weight: normal;
     padding: 0px 8px;
-    height: 50px;
+    height: $header-height;
 }
 td {
     color: white;
@@ -67,12 +63,15 @@ td {
     transition: .1s linear;
 }
 
+tr:first-child {
+    border-top: $table-separate-line solid 0px;
+}
+
 tr {
     border-top: $table-separate-line solid 2px;
 }
 
 tr:hover td {    
-    //height: $table-string-height-hover;
     color: $table-title-border-line;
     background: $table-string-background-hover;
 }
