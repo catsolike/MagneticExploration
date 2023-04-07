@@ -29,7 +29,7 @@ export default {
         async sendProject() {
             if (this.projectName !== null && this.projectName !== '' && !this.projectName.includes(' ')  && this.projectName.length < 20) {
                 try {
-                    await axios.get(`${this.link}/create_project`,
+                    await axios.get(`${this.link}/project_add`,
                         {
                             headers: { 'content-type': 'application/javascript' },
                             params: {

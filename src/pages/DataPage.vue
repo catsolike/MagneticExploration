@@ -4,11 +4,11 @@
         @click="$router.push('/login')"
         >Log Out</custom-button>
         
-        <div class="open-out-btn-wrapper">
+        <!-- <div class="open-out-btn-wrapper">
             <custom-button class="open-out-btn"
                     @click="$router.push('/graphic')"
                     >Go to full graphic</custom-button>
-        </div>
+        </div> -->
 
         <div class="projects-list">
             <custom-select  class="projects-list__select"
@@ -16,6 +16,13 @@
                             :options="projects"
                             v-model="selectedProjectId"
             ></custom-select>
+
+            <custom-button class="projects-list__edit-btn"
+                            title="Edit area"
+                            @click="activateProjectEditing"
+            >
+                &#9998;
+            </custom-button>
 
             <custom-button class="projects-list__add-btn"
                             title="Add new project"
@@ -32,6 +39,13 @@
                             v-model="selectedAreaId"
             ></custom-select>
                 
+            <custom-button class="areas-list__edit-btn"
+                title="Edit area"
+                @click="activateAreaEditing"
+            >
+                &#9998;
+            </custom-button>
+
             <custom-button class="areas-list__add-btn"
                 title="Add new area"
                 @click="activateAreaAdding"
@@ -46,6 +60,13 @@
                             :options="lines"
                             v-model="selectedLineId"
             ></custom-select>
+
+            <custom-button class="lines-list__edit-btn"
+                            title="Edit area"
+                            @click="activateLineEditing"
+            >
+                &#9998;
+            </custom-button>
 
             <custom-button class="lines-list__add-btn"
                             title="Add new line"
@@ -115,9 +136,9 @@
         <div class="graphic-wrapper"
              v-else-if="pointsOnArea.length > 0"
         >
-            <test-mountain class="graphic-element"
+            <mountain-graph class="graphic-element"
                            :items="pointsOnArea"
-            ></test-mountain>
+            ></mountain-graph>
         </div>
     </div>
 </template>
@@ -126,13 +147,13 @@
 <script>
 import axios from 'axios';
 import TestTable from '@/components/TestTable.vue';
-import TestMountain from '@/components/Graphs/TestMountain.vue'
+import MountainGraph from '@/components/Graphs/MountainGraph.vue'
 
 export default {
     name: "test-page",
     components: {
         TestTable,
-        TestMountain
+        MountainGraph
     },
     data() {
         return {
@@ -147,32 +168,32 @@ export default {
             projects: [],
             areas: [ {name:'Сначала выберите проект'} ],
             lines: [ { name: 'Сначала выберите площадь' }],
-            pointsOnArea: [],
+            // pointsOnArea: [],
             pointsOnLine: [],
-            // points: [
-            //     { id: 1,  lineId: 1, x: 10, y: 10, thickness: 1, magneticStrength: 50,  induction: 50,  /* [50, 100, 150, 200, 250, 300, 350, 400, 450, 500], */ inclination: 30, declination: -10, operatorId: 1001,	    datetime: "2022-01-01 10:00:00", },
-            //     { id: 2,  lineId: 1, x: 20, y: 10, thickness: 3, magneticStrength: 100, induction: 100, /* [1, 2, 3, 4, 5, 2, 3, 4, 5, 1], inclination: 60, */ declination: 5, operatorId: 1002,	    datetime: "2022-01-02 11:30:00", },
-            //     { id: 3,  lineId: 1, x: 30, y: 10, thickness: 2, magneticStrength: 75,  induction: 75,  /* [1, 2, 3, 4, 5, 2, 3, 4, 5, 1], inclination: 45, */ declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
-            //     { id: 4,  lineId: 1, x: 40, y: 10, thickness: 5, magneticStrength: 75,  induction: 75,  /* [1, 2, 3, 4, 5, 2, 3, 4, 5, 1], inclination: 45, */ declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
-            //     { id: 5,  lineId: 1, x: 50, y: 10, thickness: 1, magneticStrength: 75,  induction: 75,  /* [1, 2, 3, 4, 5, 2, 3, 4, 5, 1], inclination: 45, */ declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
-            //     { id: 6,  lineId: 1, x: 60, y: 10, thickness: 2, magneticStrength: 75,  induction: 75,  /* [1, 2, 3, 4, 5, 2, 3, 4, 5, 1], inclination: 45, */ declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
-            //     { id: 7,  lineId: 1, x: 70, y: 10, thickness: 5, magneticStrength: 75,  induction: 75,  /* [1, 2, 3, 4, 5, 2, 3, 4, 5, 1], inclination: 45, */ declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
-            //     { id: 8,   lineId: 2, x: 15, y: 20, thickness: 3, magneticStrength: 50, induction: 50,  inclination: 30, declination: -10, operatorId: 1001,	    datetime: "2022-01-01 10:00:00", },
-            //     { id: 9,   lineId: 2, x: 25, y: 20, thickness: 1, magneticStrength: 100,induction: 100, inclination: 60, declination: 5, operatorId: 1002,	    datetime: "2022-01-02 11:30:00", },
-            //     { id: 10,  lineId: 2, x: 72, y: 20, thickness: 7, magneticStrength: 75, induction: 75,  inclination: 45, declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
-            //     { id: 11,  lineId: 2, x: 73, y: 20, thickness: 6, magneticStrength: 75, induction: 75,  inclination: 45, declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
-            //     { id: 12,  lineId: 2, x: 70, y: 20, thickness: 5, magneticStrength: 75, induction: 75,  inclination: 45, declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
-            //     { id: 13,  lineId: 2, x: 77, y: 20, thickness: 6, magneticStrength: 75, induction: 75,  inclination: 45, declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
-            //     { id: 14,  lineId: 2, x: 75, y: 20, thickness: 4, magneticStrength: 75, induction: 75,  inclination: 45, declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
-            //     { id: 15,  lineId: 3, x: 10, y: 30, thickness: 2, magneticStrength: 50, induction: 50,  inclination: 30, declination: -10, operatorId: 1001, datetime: "2022-01-01 10:00:00", },
-            //     { id: 16,  lineId: 3, x: 20, y: 30, thickness: 4, magneticStrength: 100,induction: 100, inclination: 60, declination: 5, operatorId: 1002,	    datetime: "2022-01-02 11:30:00", },
-            //     { id: 17,  lineId: 3, x: 30, y: 30, thickness: 4, magneticStrength: 75, induction: 75,  inclination: 45, declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
-            //     { id: 18,  lineId: 3, x: 40, y: 30, thickness: 6, magneticStrength: 75, induction: 75,  inclination: 45, declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
-            //     { id: 19,  lineId: 3, x: 50, y: 30, thickness: 2, magneticStrength: 75, induction: 75,  inclination: 45, declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
-            //     { id: 20,  lineId: 3, x: 60, y: 30, thickness: 3, magneticStrength: 75, induction: 75,  inclination: 45, declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
-            //     { id: 21,  lineId: 3, x: 70, y: 30, thickness: 1, magneticStrength: 75, induction: 75,  inclination: 45, declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
-            //     { id: 22,  lineId: 14, x: 10, y: 40, thickness: 9, magneticStrength: 75, induction: 75, inclination: 45, declination: -20, operatorId: 1001, datetime: "2022-01-03 14:15:00", },
-            // ],
+            pointsOnArea: [
+                { id: 1,  lineId: 1, x: 10, y: 10, thickness: 1, magneticStrength: 50,  induction: 50,  /* [50, 100, 150, 200, 250, 300, 350, 400, 450, 500], */ inclination: 30, declination: -10, operatorId: 1001,	    datetime: "2022-01-01 10:00:00", },
+                { id: 2,  lineId: 1, x: 20, y: 10, thickness: 3, magneticStrength: 100, induction: 100, /* [1, 2, 3, 4, 5, 2, 3, 4, 5, 1], inclination: 60, */ declination: 5, operatorId: 1002,	    datetime: "2022-01-02 11:30:00", },
+                { id: 3,  lineId: 1, x: 30, y: 10, thickness: 2, magneticStrength: 75,  induction: 75,  /* [1, 2, 3, 4, 5, 2, 3, 4, 5, 1], inclination: 45, */ declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
+                { id: 4,  lineId: 1, x: 40, y: 10, thickness: 5, magneticStrength: 75,  induction: 75,  /* [1, 2, 3, 4, 5, 2, 3, 4, 5, 1], inclination: 45, */ declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
+                { id: 5,  lineId: 1, x: 50, y: 10, thickness: 1, magneticStrength: 75,  induction: 75,  /* [1, 2, 3, 4, 5, 2, 3, 4, 5, 1], inclination: 45, */ declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
+                { id: 6,  lineId: 1, x: 60, y: 10, thickness: 2, magneticStrength: 75,  induction: 75,  /* [1, 2, 3, 4, 5, 2, 3, 4, 5, 1], inclination: 45, */ declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
+                { id: 7,  lineId: 1, x: 70, y: 10, thickness: 5, magneticStrength: 75,  induction: 75,  /* [1, 2, 3, 4, 5, 2, 3, 4, 5, 1], inclination: 45, */ declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
+                { id: 8,   lineId: 2, x: 15, y: 20, thickness: 3, magneticStrength: 50, induction: 50,  inclination: 30, declination: -10, operatorId: 1001,	    datetime: "2022-01-01 10:00:00", },
+                { id: 9,   lineId: 2, x: 25, y: 20, thickness: 1, magneticStrength: 100,induction: 100, inclination: 60, declination: 5, operatorId: 1002,	    datetime: "2022-01-02 11:30:00", },
+                { id: 10,  lineId: 2, x: 72, y: 20, thickness: 7, magneticStrength: 75, induction: 75,  inclination: 45, declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
+                { id: 11,  lineId: 2, x: 73, y: 20, thickness: 6, magneticStrength: 75, induction: 75,  inclination: 45, declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
+                { id: 12,  lineId: 2, x: 70, y: 20, thickness: 5, magneticStrength: 75, induction: 75,  inclination: 45, declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
+                { id: 13,  lineId: 2, x: 77, y: 20, thickness: 6, magneticStrength: 75, induction: 75,  inclination: 45, declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
+                { id: 14,  lineId: 2, x: 75, y: 20, thickness: 4, magneticStrength: 75, induction: 75,  inclination: 45, declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
+                { id: 15,  lineId: 3, x: 10, y: 30, thickness: 2, magneticStrength: 50, induction: 50,  inclination: 30, declination: -10, operatorId: 1001, datetime: "2022-01-01 10:00:00", },
+                { id: 16,  lineId: 3, x: 20, y: 30, thickness: 4, magneticStrength: 100,induction: 100, inclination: 60, declination: 5, operatorId: 1002,	    datetime: "2022-01-02 11:30:00", },
+                { id: 17,  lineId: 3, x: 30, y: 30, thickness: 4, magneticStrength: 75, induction: 75,  inclination: 45, declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
+                { id: 18,  lineId: 3, x: 40, y: 30, thickness: 6, magneticStrength: 75, induction: 75,  inclination: 45, declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
+                { id: 19,  lineId: 3, x: 50, y: 30, thickness: 2, magneticStrength: 75, induction: 75,  inclination: 45, declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
+                { id: 20,  lineId: 3, x: 60, y: 30, thickness: 3, magneticStrength: 75, induction: 75,  inclination: 45, declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
+                { id: 21,  lineId: 3, x: 70, y: 30, thickness: 1, magneticStrength: 75, induction: 75,  inclination: 45, declination: -20, operatorId: 1001,	    datetime: "2022-01-03 14:15:00", },
+                { id: 22,  lineId: 14, x: 10, y: 40, thickness: 9, magneticStrength: 75, induction: 75, inclination: 45, declination: -20, operatorId: 1001, datetime: "2022-01-03 14:15:00", },
+            ],
         }
     },
     mounted() {
@@ -183,7 +204,8 @@ export default {
             this.fetchAreas(this.selectedProjectId)
         },
         selectedAreaId() {
-            this.fetchLines(this.selectedAreaId)
+            this.fetchLines(this.selectedAreaId);
+            // this.fetchPointsOnArea(this.selectedAreaId)
         },
         selectedLineId() {
             this.fetchPointsOnLine(this.selectedLineId)
@@ -262,9 +284,20 @@ export default {
                 console.log(e)
             }
         },
-        // async fetchPointsOnArea(areaId) {
-            
-        // },
+        async fetchPointsOnArea(areaId) {
+            try {
+                const response = await axios.get(`${this.defaultLink}/points_by_area`,
+                    {
+                        headers: { 'content-type': 'application/javascript' },
+                        params: {
+                            area_id: areaId,
+                        }
+                    })
+                    this.pointsOnArea = response.data;
+            } catch (e) {
+                console.log(e)
+            }
+        },
         async fetchPointsOnLine(lineId) {
             try {
                 const response = await axios.get(`${this.defaultLink}/points`,
@@ -323,8 +356,12 @@ export default {
     display: flex;
     flex-direction: row;
 
+    &__edit-btn {
+        margin: 0 5px;
+        padding: 0 12px;
+    }
+
     &__add-btn {
-        margin: 0 0 0 5px;
     }
 }
 
@@ -337,8 +374,13 @@ export default {
     //&__select {
     //}
 
+    &__edit-btn {
+        margin: 0 5px;
+        padding: 0 12px;
+    }
+
+
     &__add-btn {
-        margin: 0 0 0 5px;
     }
 }
 
@@ -351,8 +393,12 @@ export default {
    //&__select {
    //}
     
+   &__edit-btn {
+        margin: 0 5px;
+        padding: 0 12px;
+    }
+
     &__add-btn {
-        margin: 0 0 0 5px;
     }
 }
 
@@ -406,8 +452,7 @@ export default {
 }
 
 .graphic-element{
-    position: relative;
-    z-index: 0;
+    
 }
 
 </style>
